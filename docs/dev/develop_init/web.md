@@ -1,5 +1,6 @@
 ### Gin-Prime [Web Part]
 
+#### 初始化
 ```shell
 # 如果没有安装创建npm, 请自行搜索安装步骤
 # 如果没有安装create-react-app, 需要执行以下命令
