@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/fvbock/endless"
-	"github.com/gin-gonic/gin"
-	"log"
+	"main/core"
 )
 
 //go:generate go env -w GO111MODULE=on
@@ -14,18 +12,14 @@ import (
 
 func init() {
 	fmt.Println(
-		"  ____ _             ____       _                \n" +
-			" / ___(_)_ __       |  _ \\ _ __(_)_ __ ___   ___ \n" +
-			"| |  _| | '_ \\ _____| |_) | '__| | '_ ` _ \\ / _ \\\n" +
-			"| |_| | | | | |_____|  __/| |  | | | | | | |  __/\n" +
-			" \\____|_|_| |_|     |_|   |_|  |_|_| |_| |_|\\___|")
+		"          _                        _              \n" +
+			"   ____ _(_)___        ____  _____(_)___ ___  ___ \n" +
+			"  / __ `/ / __ \\______/ __ \\/ ___/ / __ `__ \\/ _ \\\n" +
+			" / /_/ / / / / /_____/ /_/ / /  / / / / / / /  __/\n" +
+			" \\__, /_/_/ /_/     / .___/_/  /_/_/ /_/ /_/\\___/ \n" +
+			"/____/             /_/                            ")
 }
 
 func main() {
-	r := gin.Default()
-	server := endless.NewServer(":8080", r)
-	err := server.ListenAndServe()
-	if err != nil {
-		log.Fatal("Error starting server:", err)
-	}
+	core.RunServer()
 }
