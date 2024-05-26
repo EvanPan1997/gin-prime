@@ -10,6 +10,11 @@ import (
 //go:generate go mod tidy
 //go:generate go mod download
 
+func main() {
+	core.RunServer()
+}
+
+// initialize
 func init() {
 	fmt.Println(
 		"          _                        _              \n" +
@@ -18,8 +23,5 @@ func init() {
 			" / /_/ / / / / /_____/ /_/ / /  / / / / / / /  __/\n" +
 			" \\__, /_/_/ /_/     / .___/_/  /_/_/ /_/ /_/\\___/ \n" +
 			"/____/             /_/                            ")
-}
-
-func main() {
-	core.RunServer()
+	core.Initialize()
 }

@@ -7,7 +7,6 @@ import (
 )
 
 func RunServer() {
-	//fmt.Println(args)
 	r := gin.Default()
 	server := endless.NewServer(":8080", r)
 	err := server.ListenAndServe()
