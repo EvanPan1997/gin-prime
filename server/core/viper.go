@@ -30,7 +30,7 @@ func getViper() *viper.Viper {
 				config = global.ConfigTestFile
 			}
 			if config != "" {
-				fmt.Printf("You are using the %s mode of gin framework, the routine of config file is %s\n", gin.Mode(), config)
+				fmt.Printf("您正在使用gin框架的%s模式, 配置文件路径为%s\n", gin.Mode(), config)
 			} else {
 				panic("config filename cannot be empty")
 			}
@@ -39,15 +39,15 @@ func getViper() *viper.Viper {
 			re := regexp.MustCompile(`[^a-zA-Z0-9_]+`)
 			match := re.FindString(configEnv)
 			if len(match) > 0 {
-				fmt.Printf("environment variable is Illegal, value: %s\n", configEnv)
+				fmt.Printf("非法环境变量, 值为: %s\n", configEnv)
 				panic("Illegal Environment Variable")
 			} else {
 				config = "config." + strings.ToLower(configEnv) + ".yaml"
-				fmt.Printf("You are using environment variable, value is %s, routine of config file is %s\n", configEnv, config)
+				fmt.Printf("您正在使用环境变量读取配置, 值为%s, 配置文件路径为%s\n", configEnv, config)
 			}
 		}
 	} else {
-		fmt.Printf("You are passing the value using the \"-c\" argument on the command line, routine of config file is %s\n", config)
+		fmt.Printf("您正在使用命令行\"-c\"指令指定配置文件, 配置文件路径为%s\n", config)
 	}
 
 	v := viper.New()
