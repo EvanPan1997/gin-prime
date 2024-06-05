@@ -6,8 +6,8 @@
 # 如果没有安装create-react-app, 需要执行以下命令
 npm install -g create-react-app
 # 创建项目
-create-react-app web # web是项目名, 可根据需要自定义
-
+create-react-app web --template typescript # web是项目名, 可根据需要自定义
+#tips: --template typescript启用typescript
 cd web
 # 启动项目测试是否成功创建
 npm start
