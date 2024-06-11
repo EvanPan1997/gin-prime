@@ -15,4 +15,9 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
 }
