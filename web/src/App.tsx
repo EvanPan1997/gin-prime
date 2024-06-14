@@ -20,10 +20,12 @@ const router = createBrowserRouter([
         // element: <Layout/>,
         element: loadComponent("./view/root.tsx"),
         errorElement: loadComponent("./view/error-page.tsx"),
+        // "loader": () => {
+        //     return redirect('/a')
+        // },
         children: [
             {
                 path: 'a',
-                // element: <ComponentA/>
                 element: loadComponent("./component/ComponentA.tsx")
 
             },
@@ -35,12 +37,12 @@ const router = createBrowserRouter([
     }
 ])
 
-class App extends React.Component<any, any> {
+class App extends React.Component {
     render() {
         return (
-            <div id="app">
+            // <CustomConfigProvider>
                 <RouterProvider router={router}></RouterProvider>
-            </div>
+            // </CustomConfigProvider>
         )
     }
 }
