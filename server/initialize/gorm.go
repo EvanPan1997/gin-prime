@@ -21,6 +21,9 @@ func RegisterTables() {
 	db := global.GpDb
 	err := db.AutoMigrate(
 		system.GpMenu{},
+		system.GpMenuWhitelist{},
+		system.GpRole{},
+		system.GpRoleMenuRel{},
 	)
 	if err != nil {
 		fmt.Println("register table failed, ", err)
