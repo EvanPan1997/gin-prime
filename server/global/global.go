@@ -2,12 +2,13 @@ package global
 
 import (
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
+	"gorm.io/gorm"
 	"main/config"
 )
 
 var (
-	GP_Viper  *viper.Viper
-	GP_CONFIG config.Server
-	GP_LOGGER *zap.Logger
+	GpViper  *viper.Viper
+	GpConfig config.Server
+	GpDb     *gorm.DB
+	//GP_LOGGER *zap.Logger
 )

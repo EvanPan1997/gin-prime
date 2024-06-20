@@ -1,0 +1,15 @@
+system:
+  addr: 8080
+  db-type: mysql
+
+mysql:
+  path: localhost
+  port: 3306
+  config: ""
+  db-name: "gin_prime"
+  username: "root"
+  password: "root1234"
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false

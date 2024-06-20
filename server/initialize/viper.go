@@ -1,4 +1,4 @@
-package core
+package initialize
 
 import (
 	"flag"
@@ -13,7 +13,7 @@ import (
 )
 
 // 优先级: 命令行 > 环境变量 > 默认值
-func getViper() *viper.Viper {
+func GetViper() *viper.Viper {
 	var config string
 	// 获取命令行参数
 	flag.StringVar(&config, "c", "", "choose config file.")
@@ -60,11 +60,11 @@ func getViper() *viper.Viper {
 	v.WatchConfig()
 	v.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Println("config file changed:", e.Name)
-		if err = v.Unmarshal(&global.GP_CONFIG); err != nil {
+		if err = v.Unmarshal(&global.GpConfig); err != nil {
 			fmt.Println(err)
 		}
 	})
-	if err = v.Unmarshal(&global.GP_CONFIG); err != nil {
+	if err = v.Unmarshal(&global.GpConfig); err != nil {
 		panic(err)
 	}
 	return v
