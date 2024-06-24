@@ -1,37 +1,23 @@
 import './App.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import React, {Suspense} from "react";
+import React from "react";
+import {loadComponent} from "@/loader.tsx";
 
-const loadComponent = (componentPath: string) => {
-    const LazyComponent= React.lazy(() => import(componentPath));
-    if (!LazyComponent) {
-        return null
-    }
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <LazyComponent/>
-        </Suspense>
-    )
-}
 
 const router = createBrowserRouter([
     {
         path: '/',
-        // element: <Layout/>,
-        element: loadComponent("./view/root.tsx"),
-        errorElement: loadComponent("./view/error-page.tsx"),
-        // "loader": () => {
-        //     return redirect('/a')
-        // },
+        element: loadComponent("view", "root"),
+        errorElement: loadComponent("view", "error-page"),
         children: [
             {
                 path: 'a',
-                element: loadComponent("./component/ComponentA.tsx")
+                element: loadComponent("component", "ComponentA")
 
             },
             {
                 path: 'b',
-                element: loadComponent("./component/ComponentB.tsx")
+                element: loadComponent("component", "ComponentB")
             }
         ]
     }
@@ -40,7 +26,7 @@ const router = createBrowserRouter([
 class App extends React.Component {
     render() {
         return (
-            // <CustomConfigProvider>
+             // <CustomConfigProvider>
                 <RouterProvider router={router}></RouterProvider>
             // </CustomConfigProvider>
         )

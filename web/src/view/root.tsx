@@ -32,7 +32,9 @@ class Root extends React.Component {
                 {/*<ConfigProvider theme={{algorithm: theme.darkAlgorithm}}>*/}
                 <div id="layout">
                     <Layout style={{minHeight: '100vh'}}>
-                        <Header>
+                        <Header style={{
+                            boxShadow: "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+                        }}>
                             <div id="gp-logo-box">
                                 <div id="gp-inner-logo">
                                     <img src="" alt="Logo"/>
@@ -42,6 +44,7 @@ class Root extends React.Component {
 
                         <Layout>
                             <Sider>
+                                {/* @ts-ignore */}
                                 <Menu items={null}></Menu>
                             </Sider>
 
