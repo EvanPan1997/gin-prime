@@ -16,6 +16,11 @@ func main() {
 
 // initialize
 func init() {
+	printGpLogo()
+	core.Initialize()
+}
+
+func printGpLogo() {
 	fmt.Println(
 		"          _                        _              \n" +
 			"   ____ _(_)___        ____  _____(_)___ ___  ___ \n" +
@@ -23,5 +28,4 @@ func init() {
 			" / /_/ / / / / /_____/ /_/ / /  / / / / / / /  __/\n" +
 			" \\__, /_/_/ /_/     / .___/_/  /_/_/ /_/ /_/\\___/ \n" +
 			"/____/             /_/                            ")
-	core.Initialize()
 }
