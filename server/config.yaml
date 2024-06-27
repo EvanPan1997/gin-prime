@@ -1,6 +1,16 @@
 system:
   addr: 8080
   db-type: mysql
+# zap logger configuration
+zap:
+  level: info
+  format: console
+  prefix: "[gin-prime]"
+  directory: log
+  show-line: true
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  log-in-console: true
 
 mysql:
   path: localhost

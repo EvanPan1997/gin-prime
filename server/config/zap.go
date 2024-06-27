@@ -1,6 +1,9 @@
 package config
 
-import "go.uber.org/zap/zapcore"
+import (
+	"go.uber.org/zap/zapcore"
+	"time"
+)
 
 type Zap struct {
 	Level         string `mapstructure:"level" json:"level" yaml:"level"`                            // 级别
@@ -13,14 +16,39 @@ type Zap struct {
 	LogInConsole  bool   `mapstructure:"log-in-console" json:"log-in-console" yaml:"log-in-console"` // 输出控制台
 }
 
-func (c *Zap) Levels() []zapcore.Level {
-	levels := make([]zapcore.Level, 0, 7)
-	level, err := zapcore.ParseLevel(c.Level)
-	if err != nil {
-		level = zapcore.DebugLevel
+func (c *Zap) Encoder() zapcore.Encoder {
+	config := zapcore.EncoderConfig{
+		TimeKey:       "time",
+		NameKey:       "name",
+		LevelKey:      "level",
+		CallerKey:     "caller",
+		MessageKey:    "message",
+		StacktraceKey: c.StacktraceKey,
+		LineEnding:    zapcore.DefaultLineEnding,
+		EncodeTime: func(t time.Time, encoder zapcore.PrimitiveArrayEncoder) {
+			encoder.AppendString(c.Prefix + t.Format("2006-01-02 15:04:05.000"))
+		},
+		EncodeLevel:    c.LevelEncoder(),
+		EncodeCaller:   zapcore.FullCallerEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
 	}
-	for ; level <= zapcore.FatalLevel; level++ {
-		levels = append(levels, level)
+	if c.Format == "json" {
+		return zapcore.NewJSONEncoder(config)
 	}
-	return levels
+	return zapcore.NewConsoleEncoder(config)
+}
+
+func (c *Zap) LevelEncoder() zapcore.LevelEncoder {
+	switch {
+	case c.EncodeLevel == "LowercaseLevelEncoder": // 小写编码器(默认)
+		return zapcore.LowercaseLevelEncoder
+	case c.EncodeLevel == "LowercaseColorLevelEncoder": // 小写编码器带颜色
+		return zapcore.LowercaseColorLevelEncoder
+	case c.EncodeLevel == "CapitalLevelEncoder": // 大写编码器
+		return zapcore.CapitalLevelEncoder
+	case c.EncodeLevel == "CapitalColorLevelEncoder": // 大写编码器带颜色
+		return zapcore.CapitalColorLevelEncoder
+	default:
+		return zapcore.LowercaseLevelEncoder
+	}
 }

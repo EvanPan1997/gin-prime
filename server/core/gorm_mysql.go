@@ -1,11 +1,11 @@
-package initialize
+package core
 
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"main/core/internal"
 	"main/global"
-	"main/initialize/internal"
 )
 
 func GormMysql() *gorm.DB {
