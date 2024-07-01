@@ -10,7 +10,8 @@ import (
 var (
 	GpViper  *viper.Viper
 	GpConfig config.Server
+
 	GpLogger *zap.Logger
-	GpDb     *gorm.DB
-	//GP_LOGGER *zap.Logger
+
+	GpDb *gorm.DB
 )

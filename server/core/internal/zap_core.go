@@ -5,6 +5,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"main/global"
 	"os"
+	"time"
 )
 
 type ZapCore struct {
@@ -22,7 +23,15 @@ func NewZapCore() *ZapCore {
 }
 
 func (z *ZapCore) WriteSyncer(formats ...string) zapcore.WriteSyncer {
-	return zapcore.AddSync(os.Stdout)
+	cutter := NewCutter(
+		global.GpConfig.Zap.Directory,
+		CutterWithLayout(time.DateOnly),
+	)
+	if global.GpConfig.Zap.LogInConsole {
+		multiWriteSyncer := zapcore.NewMultiWriteSyncer(os.Stdout, cutter)
+		return zapcore.AddSync(multiWriteSyncer)
+	}
+	return zapcore.AddSync(cutter)
 }
 
 func (z *ZapCore) Enabled(l zapcore.Level) bool {
@@ -45,12 +54,6 @@ func (z *ZapCore) Check(entry zapcore.Entry, check *zapcore.CheckedEntry) *zapco
 }
 
 func (z *ZapCore) Write(entry zapcore.Entry, fields []zapcore.Field) error {
-	for i := 0; i < len(fields); i++ {
-		syncer := z.WriteSyncer(fields[i].String)
-		z.Core = zapcore.NewCore(global.GpConfig.Zap.Encoder(), syncer, zap.LevelEnablerFunc(func(l zapcore.Level) bool {
-			return z.Enabled(l)
-		}))
-	}
 	return z.Core.Write(entry, fields)
 }
 

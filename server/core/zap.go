@@ -21,7 +21,10 @@ func Zap() (logger *zap.Logger) {
 	//		zap.NewAtomicLevelAt(zapcore.DebugLevel)),
 	//	zap.AddCaller(),
 	//)
-
+	//cores := make([]zapcore.Core, 0, 7)
+	//for i := 0; i <= 7; i++ {
+	//	cores = append(cores, internal.NewZapCore())
+	//}
 	core := internal.NewZapCore()
 	logger = zap.New(core)
 	return logger
