@@ -16,6 +16,19 @@ type Zap struct {
 	LogInConsole  bool   `mapstructure:"log-in-console" json:"log-in-console" yaml:"log-in-console"` // 输出控制台
 }
 
+// Levels 根据字符串转化为 zapcore.Levels
+func (c *Zap) Levels() []zapcore.Level {
+	levels := make([]zapcore.Level, 0, 7)
+	level, err := zapcore.ParseLevel(c.Level)
+	if err != nil {
+		level = zapcore.DebugLevel
+	}
+	for ; level <= zapcore.FatalLevel; level++ {
+		levels = append(levels, level)
+	}
+	return levels
+}
+
 func (c *Zap) Encoder() zapcore.Encoder {
 	config := zapcore.EncoderConfig{
 		TimeKey:       "time",

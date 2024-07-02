@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	"main/core/internal"
 	"main/global"
 	"main/utils"
@@ -21,11 +22,18 @@ func Zap() (logger *zap.Logger) {
 	//		zap.NewAtomicLevelAt(zapcore.DebugLevel)),
 	//	zap.AddCaller(),
 	//)
-	//cores := make([]zapcore.Core, 0, 7)
-	//for i := 0; i <= 7; i++ {
-	//	cores = append(cores, internal.NewZapCore())
-	//}
-	core := internal.NewZapCore()
-	logger = zap.New(core)
+
+	levels := global.GpConfig.Zap.Levels()
+	length := len(levels)
+	cores := make([]zapcore.Core, 0, length)
+	for i := 0; i < length; i++ {
+		core := internal.NewZapCore(levels[i])
+		cores = append(cores, core)
+	}
+
+	logger = zap.New(zapcore.NewTee(cores...))
+	if global.GpConfig.Zap.ShowLine {
+		logger = logger.WithOptions(zap.AddCaller())
+	}
 	return logger
 }

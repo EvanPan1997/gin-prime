@@ -7,7 +7,7 @@ import (
 func Initialize() {
 	global.GpViper = GetViper()
 
-	global.GpLogger = Zap()
+	global.GpLogger = Zap() // 初始化日志库
 
 	//global.GpDb = Gorm()
 	//if global.GpDb != nil {
