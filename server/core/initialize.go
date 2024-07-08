@@ -9,11 +9,11 @@ func Initialize() {
 
 	global.GpLogger = Zap() // 初始化日志库
 
-	//global.GpDb = Gorm()
-	//if global.GpDb != nil {
-	//	RegisterTables()
-	//
-	//	db, _ := global.GpDb.DB()
-	//	defer db.Close()
-	//}
+	global.GpDb = Gorm()
+	if global.GpDb != nil {
+		RegisterTables()
+
+		db, _ := global.GpDb.DB()
+		defer db.Close()
+	}
 }
