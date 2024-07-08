@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom"
 import React from "react";
 import '@/style/layout.css'
-import {ConfigProvider, Layout, Menu} from "antd";
+import {Button, ConfigProvider, Layout, Menu} from "antd";
 import {CustomTheme} from "@/config/CustomConfigProvider.tsx";
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -11,16 +11,15 @@ class Root extends React.Component {
         super(props);
 
         let isDark: string | null = localStorage.getItem("isDark");
-        if (!isDark) {
-            isDark = "false"
-            localStorage.setItem("isDark", "false")
-        }
+        const isDarkValue = isDark === null ? false : JSON.parse(isDark)
         this.state = {
-            isDark: isDark == "true"
+            isDark: isDarkValue
         }
     }
 
     changeTheme = () => {
+        // @ts-ignore
+        this.setState({isDark: !this.state.isDark})
     }
 
     render() {
@@ -29,15 +28,20 @@ class Root extends React.Component {
 
         return (
             <ConfigProvider theme={CustomTheme(isDark)}>
-                {/*<ConfigProvider theme={{algorithm: theme.darkAlgorithm}}>*/}
                 <div id="layout">
                     <Layout style={{minHeight: '100vh'}}>
                         <Header style={{
-                            boxShadow: "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+                            boxShadow: "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
+                            padding: "0px"
                         }}>
                             <div id="gp-logo-box">
                                 <div id="gp-inner-logo">
-                                    <img src="" alt="Logo"/>
+                                    <img src="/Gin-Prime.png"
+                                         alt="Logo"
+                                         style={{
+                                             width: "100%",
+                                             height: "100%"
+                                         }}/>
                                 </div>
                             </div>
                         </Header>
@@ -57,10 +61,10 @@ class Root extends React.Component {
                                         background: "white"
                                     }}
                                 >
+                                    <Button onClick={this.changeTheme}>changeTheme</Button>
                                     <Outlet/>
                                 </Content>
-                                <Footer>
-                                </Footer>
+                                <Footer></Footer>
                             </Layout>
 
                         </Layout>

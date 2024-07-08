@@ -140,10 +140,9 @@ const lightThemeConfig: ThemeConfig = {
     components: {
         Layout: {
             // headerBg: "#f5f5f5",
-            headerBg: "#f5f5f5",
-            headerPadding: 0,
-            siderBg: "#d9d9d9",
-            boxShadow: "true"
+            // headerPadding: 0,
+            // siderBg: "#d9d9d9",
+            // boxShadow: "true"
         },
     },
 }
@@ -154,9 +153,5 @@ const darkThemeConfig: ThemeConfig = {
 }
 
 export function CustomTheme(isDark: boolean) {
-    // console.log(isDark)
-    if (isDark) {
-        return darkThemeConfig
-    }
-    return lightThemeConfig
+    return isDark ? darkThemeConfig : lightThemeConfig
 }
