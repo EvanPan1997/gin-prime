@@ -139,19 +139,36 @@ const lightThemeConfig: ThemeConfig = {
     },
     components: {
         Layout: {
-            // headerBg: "#f5f5f5",
+            headerBg: "#f5f5f5",
+            // bodyBg: '#ffffff',
             // headerPadding: 0,
             // siderBg: "#d9d9d9",
-            // boxShadow: "true"
         },
     },
 }
 
 const darkThemeConfig: ThemeConfig = {
     ...defaultTheme,
-    algorithm: theme.darkAlgorithm
+    algorithm: theme.darkAlgorithm,
+    components: {
+        Layout: {
+            // bodyBg: '#000000'
+        }
+    }
 }
 
 export function CustomTheme(isDark: boolean) {
     return isDark ? darkThemeConfig : lightThemeConfig
+}
+
+export function MainContentBorder(isDark: boolean): any {
+    const cssProps = {
+        margin: "16px 16px 0px 16px",
+        padding: '8px',
+        borderRadius: "8px",
+        overflowY: "auto",
+        // border: '0.2px solid gray'
+    }
+    return isDark ? {...cssProps, background: '#141414'}
+        :{...cssProps, background: '#ffffff'}
 }

@@ -26,8 +26,8 @@ const router = createBrowserRouter([
 class App extends React.Component {
     render() {
         return (
-             // <CustomConfigProvider>
-                <RouterProvider router={router}></RouterProvider>
+            // <CustomConfigProvider>
+            <RouterProvider router={router}></RouterProvider>
             // </CustomConfigProvider>
         )
     }

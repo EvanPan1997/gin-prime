@@ -1,8 +1,8 @@
 import {Outlet} from "react-router-dom"
 import React from "react";
 import '@/style/layout.css'
-import {Button, ConfigProvider, Layout, Menu} from "antd";
-import {CustomTheme} from "@/config/CustomConfigProvider.tsx";
+import {Button, ConfigProvider, Layout, Menu, MenuItemProps} from "antd";
+import {CustomTheme, MainContentBorder} from "@/config/CustomConfigProvider.tsx";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -12,8 +12,17 @@ class Root extends React.Component {
 
         let isDark: string | null = localStorage.getItem("isDark");
         const isDarkValue = isDark === null ? false : JSON.parse(isDark)
+
+        const menuItems: MenuItemProps[] = [
+            {key: '1',label: 'Option1',title: 'test1'},
+            {key: '2', label: 'Option2'},
+            {key: '3', label: 'Option3'},
+            {key: '4', label: 'Option4'},
+        ]
+
         this.state = {
-            isDark: isDarkValue
+            isDark: isDarkValue,
+            items: menuItems,
         }
     }
 
@@ -24,7 +33,7 @@ class Root extends React.Component {
 
     render() {
         // @ts-ignore
-        const {isDark} = this.state
+        const {isDark, items} = this.state
 
         return (
             <ConfigProvider theme={CustomTheme(isDark)}>
@@ -32,7 +41,7 @@ class Root extends React.Component {
                     <Layout style={{minHeight: '100vh'}}>
                         <Header style={{
                             boxShadow: "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
-                            padding: "0px"
+                            padding: "0px",
                         }}>
                             <div id="gp-logo-box">
                                 <div id="gp-inner-logo">
@@ -48,18 +57,12 @@ class Root extends React.Component {
 
                         <Layout>
                             <Sider>
-                                {/* @ts-ignore */}
-                                <Menu items={null}></Menu>
+                                <Menu items={items} style={{height: '100%'}}></Menu>
                             </Sider>
 
-                            <Layout>
+                            <Layout style={{minHeight: '100%'}}>
                                 <Content
-                                    style={{
-                                        margin: "16px 16px 0px 16px",
-                                        borderRadius: "8px",
-                                        overflowY: "auto",
-                                        background: "white"
-                                    }}
+                                    style={MainContentBorder(isDark)}
                                 >
                                     <Button onClick={this.changeTheme}>changeTheme</Button>
                                     <Outlet/>
