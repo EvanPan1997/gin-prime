@@ -1,12 +1,13 @@
 import React, {Suspense} from "react";
 
-export function loadComponent(componentPath: string, componentName: string) {
-    const LazyComponent = React.lazy(() => import(`./${componentPath}/${componentName}.tsx`));
+export function loadComponent(componentPath: string) {
+    const LazyComponent = React.lazy(() => import(`./${componentPath}.tsx`));
     if (!LazyComponent) {
         return null
     }
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        // <Suspense fallback={<div>Loading...</div>}>
+        <Suspense>
             <LazyComponent/>
         </Suspense>
     )

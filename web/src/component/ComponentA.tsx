@@ -4,7 +4,7 @@ class ComponentA extends React.Component {
     render() {
         return (
             <div>
-                <p>A</p>
+                <h1>A</h1>
             </div>
         )
     }

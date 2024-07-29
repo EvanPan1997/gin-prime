@@ -152,7 +152,7 @@ const darkThemeConfig: ThemeConfig = {
     algorithm: theme.darkAlgorithm,
     components: {
         Layout: {
-            // bodyBg: '#000000'
+            headerBg: "#000000",
         }
     }
 }
