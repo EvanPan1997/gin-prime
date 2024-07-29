@@ -157,11 +157,11 @@ const darkThemeConfig: ThemeConfig = {
     }
 }
 
-export function CustomTheme(isDark: boolean) {
-    return isDark ? darkThemeConfig : lightThemeConfig
+export function CustomTheme(theme: string) {
+    return theme==='dark' ? darkThemeConfig : lightThemeConfig
 }
 
-export function MainContentBorder(isDark: boolean): any {
+export function MainContentBorder(theme: string): any {
     const cssProps = {
         margin: "16px 16px 0px 16px",
         padding: '8px',
@@ -169,6 +169,6 @@ export function MainContentBorder(isDark: boolean): any {
         overflowY: "auto",
         // border: '0.2px solid gray'
     }
-    return isDark ? {...cssProps, background: '#141414'}
+    return theme==='dark' ? {...cssProps, background: '#141414'}
         :{...cssProps, background: '#ffffff'}
 }

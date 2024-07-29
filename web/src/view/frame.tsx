@@ -13,30 +13,27 @@ class Frame extends React.Component {
     constructor(props: {}) {
         super(props);
 
-        let isDark: string | null = localStorage.getItem("isDark");
-        const isDarkValue = isDark === null ? false : JSON.parse(isDark)
+        let customTheme: string | null = localStorage.getItem("CUSTOM_THEME");
+        const theme = customTheme==='dark' ? 'dark' : 'light';
 
         const items: MenuItem[] = [
-            {
-                key: '/a', label: 'Option A'
-            },
-            {
-                key: '/b', label: 'Option B'
-            }
+            {key: '/a', label: 'Option A'},
+            {key: '/b', label: 'Option B'}
         ]
 
-        localStorage.setItem('isDark', isDarkValue.toString());
+        localStorage.setItem('CUSTOM_THEME', theme);
         this.state = {
-            isDark: isDarkValue,
+            theme: theme,
             menuItems: items,
         }
     }
 
     changeTheme = () => {
         // @ts-ignore
-        const isDark = !this.state.isDark
-        this.setState({isDark: isDark});
-        localStorage.setItem('isDark', isDark.toString());
+        let theme = this.state.theme
+        theme = theme==='dark' ? 'light' : 'dark';
+        this.setState({theme: theme});
+        localStorage.setItem('CUSTOM_THEME', theme);
     }
 
     handleMenuClick = (path: string) => {
@@ -45,9 +42,9 @@ class Frame extends React.Component {
 
     render() {
         // @ts-ignore
-        const {isDark, menuItems} = this.state
+        const {theme, menuItems} = this.state
         return (
-            <ConfigProvider theme={CustomTheme(isDark)}>
+            <ConfigProvider theme={CustomTheme(theme)}>
                 <div id="layout">
                     <Layout style={{minHeight: '100vh'}}>
                         <Header style={{
@@ -68,12 +65,13 @@ class Frame extends React.Component {
 
                         <Layout>
                             <Sider>
-                                <Menu items={menuItems} style={{height: '100%'}} onClick={({key})=> this.handleMenuClick(key)}></Menu>
+                                <Menu items={menuItems} style={{height: '100%'}}
+                                      onClick={({key}) => this.handleMenuClick(key)}></Menu>
                             </Sider>
 
                             <Layout style={{minHeight: '100%'}}>
                                 <Content
-                                    style={MainContentBorder(isDark)}
+                                    style={MainContentBorder(theme)}
                                 >
                                     <Button onClick={this.changeTheme}>changeTheme</Button>
                                     <Outlet/>
