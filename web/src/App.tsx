@@ -6,7 +6,8 @@ import {loadComponent} from "@/loader.tsx";
 let items: {}[] = [
     {
         path: '/',
-        componentPath: 'view/frame',
+        componentPath: 'view/LayoutView',
+        errorComponentPath: 'view/ErrorPage',
         children: [
             {
                 path: '/a',
@@ -25,7 +26,7 @@ const loadRouter = (items: any[]): any[] => {
     if (items) {
         for (let i: number = 0; i < items.length; i++) {
             let item = items[i];
-            const {componentPath, children} = item;
+            const {componentPath, errorComponentPath, children} = item;
 
             if (children) {
                 if (children.length > 0) {
@@ -34,9 +35,16 @@ const loadRouter = (items: any[]): any[] => {
             }
 
             if (componentPath) {
-                let element: JSX.Element | null = loadComponent(componentPath)
+                const element: JSX.Element | null = loadComponent(componentPath)
                 if (element) {
                     item.element = element;
+                }
+            }
+
+            if (errorComponentPath) {
+                const errorElement: JSX.Element | null = loadComponent(errorComponentPath)
+                if (errorElement) {
+                    item.errorElement = errorElement
                 }
             }
 
