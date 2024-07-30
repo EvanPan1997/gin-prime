@@ -13,7 +13,7 @@ function LayoutView(): JSX.Element {
     const [theme, setTheme] = useState(localStorage.getItem("CUSTOM_THEME") === 'dark' ? 'dark' : 'light');
     localStorage.setItem('CUSTOM_THEME', theme);
 
-    const changeTheme = () => {
+    const changeTheme = (): void => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
         localStorage.setItem('CUSTOM_THEME', theme);
     }
@@ -22,6 +22,16 @@ function LayoutView(): JSX.Element {
         {key: '/a', label: 'Option A'},
         {key: '/b', label: 'Option B'}
     ]
+
+    let defaultPath = "/";
+    if (items[0]) {
+        const item: MenuItem = items[0];
+        // @ts-ignore
+        const key :string = item.key
+        if (key) {
+            defaultPath= key
+        }
+    }
 
     const navigate = useNavigate();
 
@@ -37,11 +47,16 @@ function LayoutView(): JSX.Element {
                         boxShadow: "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
                         padding: "0px",
                     }}>
-                        <div id="gp-logo-box">
-                            <div id="gp-inner-logo">
-                                <img src="/Gin-Prime.png"
-                                     alt="Logo"
-                                     style={{width: "100%", height: "100%"}}/>
+                        {/*Logo组件: 点击事件回到首页*/}
+                        {/*TODO 后续修改新增模块部分可能需要调整*/}
+                        <div onClick={() => {window.location.href=defaultPath}}>
+                            <div id="gp-logo-box">
+                                <div id="gp-inner-logo">
+                                    <img src="/Gin-Prime.png"
+                                         alt="Logo"
+                                         style={{width: "100%", height: "100%"}}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </Header>
