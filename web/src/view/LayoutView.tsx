@@ -10,27 +10,31 @@ type MenuItem = Required<MenuProps>['items'][number];
 const {Header, Content, Footer, Sider} = Layout;
 
 function LayoutView(): JSX.Element {
+    const itemGroupMap: [{ groupId: string, groupName: string, items: MenuItem[] }] = [
+        {
+            groupId: "default",
+            groupName: "default",
+            items: [
+                {
+                    key: '/a',
+                    label: 'Option A'
+                },
+                {
+                    key: '/b',
+                    label: 'Option B'
+                }
+            ]
+        }
+    ];
+
+    const defaultGroup: { groupId: string, groupName: string, items: MenuItem[] } = itemGroupMap[0];
+
     const [theme, setTheme] = useState(localStorage.getItem("CUSTOM_THEME") === 'dark' ? 'dark' : 'light');
     localStorage.setItem('CUSTOM_THEME', theme);
 
     const changeTheme = (): void => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
         localStorage.setItem('CUSTOM_THEME', theme);
-    }
-
-    const items: MenuItem[] = [
-        {key: '/a', label: 'Option A'},
-        {key: '/b', label: 'Option B'}
-    ]
-
-    let defaultPath = "/";
-    if (items[0]) {
-        const item: MenuItem = items[0];
-        // @ts-ignore
-        const key :string = item.key
-        if (key) {
-            defaultPath= key
-        }
     }
 
     const navigate = useNavigate();
@@ -49,7 +53,10 @@ function LayoutView(): JSX.Element {
                     }}>
                         {/*Logo组件: 点击事件回到首页*/}
                         {/*TODO 后续修改新增模块部分可能需要调整*/}
-                        <div onClick={() => {window.location.href=defaultPath}}>
+                        <div onClick={() => {
+                            // @ts-ignore
+                            window.location.href = defaultGroup.items[0].key
+                        }}>
                             <div id="gp-logo-box">
                                 <div id="gp-inner-logo">
                                     <img src="/Gin-Prime.png"
@@ -63,7 +70,7 @@ function LayoutView(): JSX.Element {
 
                     <Layout>
                         <Sider>
-                            <Menu items={items} style={{height: '100%'}}
+                            <Menu items={defaultGroup.items} style={{height: '100%'}}
                                   onClick={({key}) => handleMenuClick(key)}></Menu>
                         </Sider>
                         <Layout style={{minHeight: '100%'}}>
