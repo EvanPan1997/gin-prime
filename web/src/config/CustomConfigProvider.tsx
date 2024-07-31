@@ -158,7 +158,13 @@ const darkThemeConfig: ThemeConfig = {
 }
 
 export function CustomTheme(theme: string) {
-    return theme==='dark' ? darkThemeConfig : lightThemeConfig
+    return theme === 'dark' ? darkThemeConfig : lightThemeConfig
+}
+
+export function TopMenuCssProperties(theme: string): any {
+    const cssProps = {}
+    return theme === 'dark' ? {...cssProps, background: '#000000'}
+        : {...cssProps, background: '#f5f5f5'}
 }
 
 export function MainContentBorder(theme: string): any {
@@ -169,6 +175,6 @@ export function MainContentBorder(theme: string): any {
         overflowY: "auto",
         // border: '0.2px solid gray'
     }
-    return theme==='dark' ? {...cssProps, background: '#141414'}
-        :{...cssProps, background: '#ffffff'}
+    return theme === 'dark' ? {...cssProps, background: '#141414'}
+        : {...cssProps, background: '#ffffff'}
 }
