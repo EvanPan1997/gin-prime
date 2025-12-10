@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"main/core"
+	"main/global"
+	"time"
 )
 
 //go:generate go env -w GO111MODULE=on
@@ -17,7 +19,11 @@ func main() {
 // initialize
 func init() {
 	printGpLogo()
+	start := time.Now()
 	core.Initialize()
+	end := time.Now()
+	duration := end.Sub(start)
+	global.GpLogger.Info("Init costs " + duration.String())
 }
 
 func printGpLogo() {
