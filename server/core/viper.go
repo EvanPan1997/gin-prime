@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-// 优先级: 命令行 > 环境变量 > 默认值
+// GetViper 优先级: 命令行 > 环境变量 > 默认值
 func GetViper() *viper.Viper {
 	var config string
 	// 获取命令行参数
