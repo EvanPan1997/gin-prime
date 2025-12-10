@@ -59,30 +59,9 @@ class App extends React.Component {
     render() {
         const router = createBrowserRouter(loadRouter(items));
         return (
-            // <ConfigProvider theme={CustomTheme(isDark)}>
                 <RouterProvider router={router}></RouterProvider>
-            // </ConfigProvider>
         )
     }
 }
 
 export default App
-
-// const router = createBrowserRouter([
-//     {
-//         path: '/',
-//         element: loadComponent("view\/frame"),
-//         errorElement: loadComponent("view\/error-page"),
-//         children: [
-//             {
-//                 path: 'a',
-//                 element: loadComponent("component\/ComponentA")
-//
-//             },
-//             {
-//                 path: 'b',
-//                 element: loadComponent("component\/ComponentB")
-//             }
-//         ]
-//     }
-// ])
